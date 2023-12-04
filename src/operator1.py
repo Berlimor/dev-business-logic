@@ -1,9 +1,6 @@
 from loguru import logger
 
-from .config import settings
 from .exceptions import LicensePlateError
-
-CSV_FOLDER = settings.csv_path
 
 
 class _Operator:

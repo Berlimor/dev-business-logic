@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  business_logic:
+    build: .
+    command: uvicorn src.app:app --host 0.0.0.0 --port 8001
+    ports:
+      - "8001:8001"
+    environment:
+      MANUAL_INPUT: true

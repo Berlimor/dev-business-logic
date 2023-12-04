@@ -5,9 +5,9 @@ from .exceptions import LicensePlateError
 from .config import settings
 from .models import OperatorStopResponse
 
-app = FastAPI("Test business-logic service")
+app = FastAPI(title="Test business-logic service")
 
-@app.post("operator/manual-input")
+@app.post("/operator/manual-input")
 def start_operator_with_manual_input(license_plate: str) -> Response:
     """
     If the camera failed to get a license plate number, this endpoint accepts
@@ -35,7 +35,7 @@ def start_operator_process(cam_id: int) -> Response:
         # If manual input feature is enabled, operator will redirect
         # you to frontend endpoint to input the license plate manually.
         if settings.manual_input:
-            return Response(status_code=status.HTTP_504_GATEWAY_TIMEOUT)
+            return OperatorStopResponse(status_code=status.HTTP_504_GATEWAY_TIMEOUT, detail="license_plate")
         else:
             return Response(status_code=status.HTTP_400_BAD_REQUEST)
 
