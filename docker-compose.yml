@@ -8,3 +8,10 @@ services:
       - "8001:8001"
     environment:
       MANUAL_INPUT: true
+    networks:
+      - api
+
+networks:
+  api:
+    name: barrier_net
+    external: true  

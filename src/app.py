@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Response, status
+from fastapi.middleware.cors import CORSMiddleware
 
 from .operator1 import operator
 from .exceptions import LicensePlateError
@@ -6,6 +7,13 @@ from .config import settings
 from .models import OperatorStopResponse
 
 app = FastAPI(title="Test business-logic service")
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["GET", "POST", "OPTIONS", "PATCH", "DELETE", "PUT"],
+    allow_headers=["*"],
+)
 
 @app.post("/operator/manual-input")
 def start_operator_with_manual_input(license_plate: str) -> Response:
