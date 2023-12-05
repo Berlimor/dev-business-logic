@@ -1,10 +1,11 @@
 from fastapi import FastAPI, Response, status
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.exceptions import HTTPException
 
 from .operator1 import operator
 from .exceptions import LicensePlateError
 from .config import settings
-from .models import OperatorStopResponse
+from .models import OperatorStopResponse, GenericResponse, OperatorStartResponse
 
 app = FastAPI(title="Test business-logic service")
 app.add_middleware(
@@ -24,14 +25,14 @@ def start_operator_with_manual_input(license_plate: str) -> Response:
     try:
         operator._set_license_plate(license_plate)
         operator.start_recording()
-    
+
     except Exception as e:
         return Response(status_code=status.HTTP_400_BAD_REQUEST)
-    
-    return Response(status_code=status.HTTP_200_OK)
-    
 
-@app.get("/operator/start")
+    return Response(status_code=status.HTTP_200_OK)
+
+
+@app.get("/operator/start", responses = {200: {"model": GenericResponse}, 504: {"model": OperatorStartResponse}})
 def start_operator_process(cam_id: int) -> Response:
     """Given the id of a camera, start the operator process."""
     try:
@@ -43,7 +44,7 @@ def start_operator_process(cam_id: int) -> Response:
         # If manual input feature is enabled, operator will redirect
         # you to frontend endpoint to input the license plate manually.
         if settings.manual_input:
-            return OperatorStopResponse(status_code=status.HTTP_504_GATEWAY_TIMEOUT, detail="license_plate")
+            raise HTTPException(504, detail="licence_plate")
         else:
             return Response(status_code=status.HTTP_400_BAD_REQUEST)
 
@@ -59,9 +60,9 @@ async def stop_operator_process() -> OperatorStopResponse:
 
     except Exception as e:
         return OperatorStopResponse(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
-    
+
     operator._set_default()
     return OperatorStopResponse(
-        status_code=status.HTTP_201_CREATED, 
+        status_code=status.HTTP_201_CREATED,
         detail="Operator stopped successfully.",
     )
