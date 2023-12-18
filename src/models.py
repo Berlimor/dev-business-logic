@@ -6,7 +6,8 @@ class GenericResponse(BaseModel):
     detail: str | None = None
 
 class OperatorStopResponse(GenericResponse):
-    """Da"""
+    """ """
+
 
 class OperatorStartResponse(GenericResponse):
-    """Da"""
+    license_plate: bool = False

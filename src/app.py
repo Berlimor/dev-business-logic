@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Response, status
+from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.exceptions import HTTPException
 
@@ -44,7 +45,7 @@ def start_operator_process(cam_id: int) -> Response:
         # If manual input feature is enabled, operator will redirect
         # you to frontend endpoint to input the license plate manually.
         if settings.manual_input:
-            raise HTTPException(504, detail="licence_plate")
+            return JSONResponse(status_code=status.HTTP_504_GATEWAY_TIMEOUT, content={"status_code": 504, "license_plate": True})
         else:
             return Response(status_code=status.HTTP_400_BAD_REQUEST)
 
