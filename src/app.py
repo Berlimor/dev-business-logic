@@ -45,7 +45,7 @@ def start_operator_process(cam_id: int) -> Response:
         # If manual input feature is enabled, operator will redirect
         # you to frontend endpoint to input the license plate manually.
         if settings.manual_input:
-            return JSONResponse(status_code=status.HTTP_504_GATEWAY_TIMEOUT, content={"status_code": 504, "license_plate": True})
+            return JSONResponse(status_code=status.HTTP_504_GATEWAY_TIMEOUT, content={"status_code": 504, "номера": True})
         else:
             return Response(status_code=status.HTTP_400_BAD_REQUEST)
 
