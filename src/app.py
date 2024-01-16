@@ -33,7 +33,7 @@ def start_operator_with_manual_input(license_plate: str) -> Response:
     return Response(status_code=status.HTTP_200_OK)
 
 
-@app.get("/operator/start")
+@app.post("/operator/start")
 def start_operator_process(prod_schema: ProductionSchema) -> Response:
     """Given the id of a camera, start the operator process."""
     try:

@@ -5,12 +5,9 @@ from .exceptions import LicensePlateError
 
 class _Operator:
     def __init__(self) -> None:
-        self.cam_id: int | None = None
         self.license_plate: str | None = None
         self.manual_input: bool = False # If the license plate was inputted manually
 
-    def set_cam_id(self, cam_id: int) -> None:
-        self.cam_id = cam_id
 
     def get_back_plate(self) -> None:
         """Get the back license plate number through feecc-camera-gateway"""
