@@ -6,7 +6,7 @@ from fastapi.exceptions import HTTPException
 from .operator1 import operator
 from .exceptions import LicensePlateError
 from .config import settings
-from .models import OperatorStopResponse, GenericResponse, OperatorStartResponse
+from .models import OperatorStopResponse, GenericResponse, OperatorStartResponse, ProductionSchema
 
 app = FastAPI(title="Test business-logic service")
 app.add_middleware(
@@ -33,11 +33,10 @@ def start_operator_with_manual_input(license_plate: str) -> Response:
     return Response(status_code=status.HTTP_200_OK)
 
 
-@app.get("/operator/start", responses = {200: {"model": GenericResponse}, 504: {"model": OperatorStartResponse}})
-def start_operator_process(cam_id: int) -> Response:
+@app.get("/operator/start")
+def start_operator_process(prod_schema: ProductionSchema) -> Response:
     """Given the id of a camera, start the operator process."""
     try:
-        operator.set_cam_id(cam_id)
         operator.get_back_plate()
         operator.start_recording()
 
