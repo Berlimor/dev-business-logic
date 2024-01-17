@@ -6,8 +6,7 @@ from .exceptions import LicensePlateError
 class _Operator:
     def __init__(self) -> None:
         self.license_plate: str | None = None
-        self.manual_input: bool = False # If the license plate was inputted manually
-
+        self.manual_input: bool = False  # If the license plate was inputted manually
 
     def get_back_plate(self) -> None:
         """Get the back license plate number through feecc-camera-gateway"""
@@ -29,5 +28,6 @@ class _Operator:
         self.license_plate = None
         self.cam_id = None
         self.manual_input = False
+
 
 operator = _Operator()
