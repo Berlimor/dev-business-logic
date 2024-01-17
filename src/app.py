@@ -6,7 +6,7 @@ from fastapi.exceptions import HTTPException
 from .operator1 import operator
 from .exceptions import LicensePlateError
 from .config import settings
-from .models import OperatorStopResponse, GenericResponse, OperatorStartResponse, ProductionSchema
+from .models import OperatorStopResponse, ManualInput , ProductionSchema
 
 app = FastAPI(title="Test business-logic service")
 app.add_middleware(
@@ -18,13 +18,13 @@ app.add_middleware(
 )
 
 @app.post("/operator/manual-input")
-def start_operator_with_manual_input(license_plate: str) -> Response:
+def start_operator_with_manual_input(manual_input: ManualInput) -> Response:
     """
     If the camera failed to get a license plate number, this endpoint accepts
     the manual input of the plate number.
     """
     try:
-        operator._set_license_plate(license_plate)
+        operator._set_license_plate(manual_input.license_plate)
         operator.start_recording()
 
     except Exception as e:

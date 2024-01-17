@@ -34,3 +34,8 @@ class ProductionSchema(BaseModel):
     parent_schema_id: str | None = None
     schema_type: str | None = None
     erp_metadata: dict[str, str] | None = None
+
+
+class ManualInput(BaseModel):
+    license_plate: str | None = None
+    weight: str | None = None
