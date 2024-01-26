@@ -53,7 +53,7 @@ def start_operator_process(prod_schema: ProductionSchema) -> Response:
         if settings.manual_input:
             return JSONResponse(
                 status_code=status.HTTP_504_GATEWAY_TIMEOUT,
-                content={"status_code": 504, "номера": True},
+                content={"license_plate": True},
             )
         else:
             return Response(status_code=status.HTTP_400_BAD_REQUEST)
