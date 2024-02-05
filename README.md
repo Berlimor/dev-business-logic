@@ -1,5 +1,5 @@
 # dev-business-logic
-Для развёртывания следйте следующим шагам:
+Для развёртывания следуйте следующим шагам:
 ```
 git clone https://github.com/Berlimor/dev-business-logic.git
 docker-compose up --build -d
