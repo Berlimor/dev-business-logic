@@ -52,7 +52,7 @@ def start_operator_process(prod_schema: ProductionSchema) -> Response:
         # you to frontend endpoint to input the license plate manually.
         if settings.manual_input:
             return JSONResponse(
-                status_code=status.HTTP_504_GATEWAY_TIMEOUT,
+                status_code=status.HTTP_304_NOT_MODIFIED,
                 content={"license_plate": True},
             )
         else:
