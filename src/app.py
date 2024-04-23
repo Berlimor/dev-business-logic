@@ -63,7 +63,7 @@ def start_operator_process(prod_schema: ProductionSchema):
     return Response(status_code=status.HTTP_200_OK)
 
 
-@app.get("/stop", status_code=201)
+@app.get("/stop")
 async def stop_operator_process() -> OperatorStopResponse:
     """Stop the operator process, set Operator values to default value."""
     try:
@@ -76,7 +76,7 @@ async def stop_operator_process() -> OperatorStopResponse:
 
     operator._set_default()
     return OperatorStopResponse(
-        status_code=status.HTTP_201_CREATED,
+        status_code=status.HTTP_200_OK,
         detail="Operator stopped successfully.",
     )
 
