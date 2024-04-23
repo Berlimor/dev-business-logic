@@ -41,7 +41,7 @@ def start_operator_with_manual_input(manual_input: ManualInput) -> Response:
 
 
 @app.post("/operator/start")
-def start_operator_process(prod_schema: ProductionSchema) -> Response:
+def start_operator_process(prod_schema: ProductionSchema):
     """Given the id of a camera, start the operator process."""
     try:
         operator.get_back_plate()
@@ -52,7 +52,7 @@ def start_operator_process(prod_schema: ProductionSchema) -> Response:
         # you to frontend endpoint to input the license plate manually.
         if settings.manual_input:
             return JSONResponse(
-                status_code=status.HTTP_304_NOT_MODIFIED,
+                status_code=status.HTTP_504_GATEWAY_TIMEOUT,
                 content={"license_plate": True},
             )
         else:
