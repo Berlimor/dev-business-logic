@@ -52,7 +52,7 @@ def start_operator_process(prod_schema: ProductionSchema) -> Response:
         # you to frontend endpoint to input the license plate manually.
         if settings.manual_input:
             return JSONResponse(
-                status_code=status.HTTP_304_NOT_MODIFIED,
+                status_code=status.HTTP_504_GATEWAY_TIMEOUT,
                 content={"license_plate": True},
             )
         else:
@@ -85,13 +85,12 @@ async def stop_operator_process() -> OperatorStopResponse:
 def test_request():
     print("________________________________11111")
     request = ProductionSchema(
-        unit_name="Single Vehicle",
+        schema_name="Single Vehicle",
         schema_id="2d31e86160d74c6cb6ce83bf249bc853",
-        production_stages=[
+        schema_stages=[
             ProductionSchemaStage(
                 name="Weight the vehicle",
                 type="Weighting",
-                stage_id="319419766d5a4e42b45577d008597191",
             ).model_dump()
         ],
         erp_metadata={"order_id": "00000", "water_id": "abc123"},
