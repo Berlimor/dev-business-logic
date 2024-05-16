@@ -3,14 +3,15 @@ from uuid import uuid4
 
 
 class GenericResponse(BaseModel):
-    status_code: int
     detail: str | None = None
 
 
 class OperatorStopResponse(GenericResponse):
-    """ """
-
-
+    """"""
+    ipfs_cid: str="123123132"
+    ipfs_link: str="321321321"
+    factory_card_id: str="987987987"
+    
 class OperatorStartResponse(GenericResponse):
     license_plate: bool = False
 
